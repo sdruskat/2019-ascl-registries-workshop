@@ -1,6 +1,6 @@
 ---
 title:  'The Citation File Format (CFF): <br/> Why, what, how?'
-subtitle: 'Software Registries Collaboration Workshop,<br/>College Park, MD, 2019-11-13'
+subtitle: 'Software Registries Collaboration Workshop,<br/>College Park, MD [TODO], 2019-11-13'
 author: 
     - '<em>Stephan Druskat</em> (German Aerospace Center (DLR),<br/>Friedrich Schiller University Jena, Humboldt-Universität zu Berlin)<br/><img src="image/cc-by.png">'
 theme: 'humboldt'
@@ -24,7 +24,8 @@ aspectratio: 169
 . . .
 
 - Citation-relevant metadata not readily available [TODO insert figure with paper title page + software figure]
-- Available metadata not reliable (e.g., "correct" authors & contributors != GitHub committers)
+- Available metadata not reliable  
+(e.g., "correct" authors & contributors != GitHub committers)
 
 ## `CITATION` files
 
@@ -34,11 +35,12 @@ aspectratio: 169
 
 . . .
 
-- Idea: Develop a standard format for `CITATION` files? (WSSSPE 5.1) [@druskatShouldCITATIONFiles2017],[@druskatStandardFormatCITATION2017]
-- Outcome: Citation File Format (CFF) [@druskatCitationFileFormat2017]
+- Idea: Develop a standard format for `CITATION` files?  
+(WSSSPE 5.1) [@druskatShouldCITATIONFiles2017],[@druskatStandardFormatCITATION2017]
+- Outcome: Citation File Format (CFF) [@druskatCitationFileFormat2017] [TODO correct citation]
 
 
-# What is the Citation File Format?
+# What is the Citation File Format?<br/>(Hint: "What's in a name?")
 
 ## Features
 
@@ -80,25 +82,62 @@ identifiers:
   - A Maven plugin that creates CFF files from metadata
   - [TODO complete]
 
+
+- Development supported by:  
+German Aerospace Center (DLR) & Netherlands eScience Center
+
 # How to use CFF?
 
 ## Target groups
 
+::: {.large}
 CFF has three main target groups:
 
-1. Developers/Research Software Engineers: can make their software citable in a simple manner
-2. Researchers & other human "citers": Can easily identify software citation metadata
-3. Upstream [TODO downstream?] users, e.g., software registries: Can use CFF as input for their own metadata model/format
+1. Developers / Research Software Engineers
+2. Researchers & other human "citers"
+3. Upstream [TODO downstream?] users, e.g., software registries
+:::
 
-## Thank you!
+## Developers / RSEs ...
 
-Thanks to:  
-My collaborators on CFF: Jurriaan, Neil, Rob, Morane, James  
-Alice, Tom, Michael for the invitation
+::: {.large}
+... can make their software citable in a simple manner:
+
+1. Create `CITATION.cff` file in source code repository
+2. Complete file manually/semi-/automatically to desired degree of detail [TODO wording]
+3. Update as required (manually/semi-/automatically)
+4. Profit!
+:::
+
+## Researchers ...
+
+::: {.large}
+... can easily identify software citation metadata:
+
+1. Find `CITATION.cff` in a repository
+2. Read file & understand its purpose (from `message` field)
+3. Cite software (version) appropriately
+4. Profit!
+:::
+
+## Registries & other upstream [TODO] users ...
+
+::: {.large}
+... can use CFF as source for their own metadata model/format:
+
+1. Check for `CITATION.cff` in ingested data
+2. (Optionally: validate `CITATION.cff` + citation metadata)
+3. Convert metadata to own model/format
+4. Profit!
+:::
+
+# Thank you! 
+
+## Thanks for listening, and thanks to ...
+
+... CFF contributors (*Jurriaan Spaaks*, N. Chue Hong, R. Haines, M. Gruenpeter, J. Baker & many more); Alice Allen, Tom [TODO] & Michael [TODO] for the invitation; the Software Sustainability Institute  (UK) for funding activities around CFF.
 
 ::: {.center}
-
-### Questions?
 
 [citation-file.format.github.io](https://citation-file.format.github.io)  
 [github.com/citation-file-format](https://github.com/citation-file-format)
@@ -106,7 +145,7 @@ Alice, Tom, Michael for the invitation
 stephan.druskat@dlr.de  
 Twitter: [\@stdruskat](http://twitter.com/stdruskat)  
 ORCiD [0000-0003-4925-7248](https://orcid.org/0000-0003-4925-7248)  
-Slides: [doi:10.6084/m9.figshare.9918653](https://doi.org/10.6084/m9.figshare.9918653)
+Slides: [doi:10.6084/m9.figshare.9918653](https://doi.org/10.6084/m9.figshare.9918653) [TODO]
 
 :::
 
