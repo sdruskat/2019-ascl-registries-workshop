@@ -1,0 +1,17 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Pandoc watch",
+            "type": "shell",
+            "command": "pandoc-watch -e \".html\" -t revealjs -s --mathjax  --filter pandoc-citeproc --template=templates/default.revealjs ${file} -o ${fileBasenameNoExtension}.html",
+            "problemMatcher": []
+        },
+        {
+            "label": "Pandoc",
+            "type": "shell",
+            "command": "pandoc  -t revealjs -s --mathjax --filter pandoc-citeproc --template=templates/default.revealjs ${file} -o ${fileBasenameNoExtension}.html ",
+            "problemMatcher": []
+        }
+    ]
+}
