@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Stephan Druskat (German Aerospace Center (DLR), Friedrich Schiller University Jena, Humboldt-Universität zu Berlin)">
+  <title>The Citation File Format (CFF):   Why, what, how?</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="lib/revealjs//css/reveal.css">
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="lib/revealjs//css/theme/humboldt.css" id="theme">
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'lib/revealjs//css/print/pdf.css' : 'lib/revealjs//css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="lib/revealjs//lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">The Citation File Format (CFF): <br/> Why, what, how?</h1>
+  <p class="subtitle">Scientific Software Registry Collaboration Workshop,<br/>University of Maryland, College Park, MD, 2019-11-13</p>
+  <p class="author"><em>Stephan Druskat</em> (German Aerospace Center (DLR),<br/>Friedrich Schiller University Jena, Humboldt-Universität zu Berlin)<br/><img src="image/cc-by.png"></p>
+</section>
+
+<section><section id="citation-file-format-why" class="title-slide slide level1"><h1>Citation File Format: Why?</h1></section><section id="software-citation-has-a-metadata-problem" class="slide level2">
+<h2>Software citation has a metadata problem</h2>
+<ul>
+<li>Growing awareness of the central role of software in research</li>
+<li>Consequence: treat software as a first-class citizen in research</li>
+<li>Ergo: cite software as you would cite a paper</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Citation-relevant metadata not readily available</li>
+<li>Available metadata not reliable<br />
+(e.g., “correct” authors &amp; contributors != GitHub committers)</li>
+</ul>
+</div>
+</section><section id="citation-files" class="slide level2">
+<h2><code>CITATION</code> files</h2>
+<ul>
+<li>“Put a file called <code>CITATION</code> in your source code repository, and include a BibTeX snippet” <span class="citation" data-cites="wilsonEncouragingCitationSoftware2013">[1]</span></li>
+<li>Ambiguous file name</li>
+<li>BibTeX itself may be ambiguous, and not fit for software citation based on the Principles <span class="citation" data-cites="smithSoftwareCitationPrinciples2016">[2]</span></li>
+</ul>
+<div class="fragment">
+<ul>
+<li><strong>Idea:</strong> Develop a standard format for <code>CITATION</code> files?<br />
+(WSSSPE 5.1) <span class="citation" data-cites="druskatShouldCITATIONFiles2017">[3]</span>,<span class="citation" data-cites="druskatStandardFormatCITATION2017">[4]</span></li>
+<li><strong>Outcome:</strong> Citation File Format (CFF) <span class="citation" data-cites="druskat_stephan_2018_1405679">[5]</span></li>
+</ul>
+</div>
+</section></section>
+<section><section id="what-is-the-citation-file-format-hint-whats-in-a-name" class="title-slide slide level1"><h1>What is the Citation File Format?<br/>(Hint: “What’s in a name?”)</h1></section><section id="features" class="slide level2">
+<h2>Features</h2>
+<ul>
+<li>YAML 1.2 dictionary</li>
+<li>Human-/machine- -readable/-writable</li>
+<li>Self-descriptive (<code>CITATION.cff</code>, required <code>message</code> field)</li>
+<li>Modeled after the Software Citation Principles paper <span class="citation" data-cites="smithSoftwareCitationPrinciples2016">[2]</span></li>
+<li>Compatible with CodeMeta, BibTeX, etc.</li>
+<li>Tooling available</li>
+</ul>
+</section><section id="what-does-it-look-like" class="slide level2">
+<h2>What does it look like?</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb1-1" title="1"><span class="fu">cff-version:</span><span class="at"> </span><span class="fl">1.1.0</span></a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="fu">message:</span><span class="at"> </span><span class="st">&quot;If you use MRT in your research, please cite it as below.&quot;</span></a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="fu">authors:</span></a>
+<a class="sourceLine" id="cb1-4" title="4">  <span class="kw">-</span> <span class="fu">family-names:</span><span class="at"> Druskat</span></a>
+<a class="sourceLine" id="cb1-5" title="5">    <span class="fu">given-names:</span><span class="at"> Stephan</span></a>
+<a class="sourceLine" id="cb1-6" title="6">    <span class="fu">orcid:</span><span class="at"> https://orcid.org/0000-0003-4925-7248</span></a>
+<a class="sourceLine" id="cb1-7" title="7"><span class="fu">title:</span><span class="at"> </span><span class="st">&quot;My Research Tool&quot;</span></a>
+<a class="sourceLine" id="cb1-8" title="8"><span class="fu">version:</span><span class="at"> </span><span class="fl">1.0.4</span></a>
+<a class="sourceLine" id="cb1-9" title="9"><span class="fu">doi:</span><span class="at"> 10.5281/zenodo.1234</span></a>
+<a class="sourceLine" id="cb1-10" title="10"><span class="fu">date-released:</span><span class="at"> 2017-12-18</span></a>
+<a class="sourceLine" id="cb1-11" title="11"></a>
+<a class="sourceLine" id="cb1-12" title="12"><span class="co"># New in v1.1.0</span></a>
+<a class="sourceLine" id="cb1-13" title="13"><span class="fu">identifiers:</span></a>
+<a class="sourceLine" id="cb1-14" title="14">  <span class="kw">-</span> <span class="fu">type:</span><span class="at"> </span><span class="st">&quot;swh&quot;</span></a>
+<a class="sourceLine" id="cb1-15" title="15">    <span class="fu">value:</span><span class="at"> </span><span class="st">&quot;swh:1:rel:99f6850374dc6597af01bd0ee1d3fc0699301b9f&quot;</span></a></code></pre></div>
+</section><section id="what-tooling-is-available" class="slide level2">
+<h2>What tooling is available?</h2>
+<ul>
+<li>A schema for validation</li>
+<li>A validation tool</li>
+<li>A simple web form for manual completion (also as web service)</li>
+<li>A conversion tool (from/to CodeMeta, BibTeX, zenodo.json, …)</li>
+<li>Others, e.g.:
+<ul>
+<li>A Maven plugin that creates CFF files from metadata</li>
+<li>Object models in Java &amp; Ruby</li>
+</ul></li>
+<li>Development supported by:<br />
+German Aerospace Center (DLR) &amp; Netherlands eScience Center</li>
+</ul>
+</section></section>
+<section><section id="how-to-use-cff" class="title-slide slide level1"><h1>How to use CFF?</h1></section><section id="target-groups" class="slide level2">
+<h2>Target groups</h2>
+<div class="large">
+<p>CFF has three main target groups:</p>
+<ol type="1">
+<li>Developers / Research Software Engineers</li>
+<li>Researchers &amp; other human “citers”</li>
+<li>Downstream users, e.g., software registries</li>
+</ol>
+</div>
+</section><section id="developers-rses" class="slide level2">
+<h2>Developers / RSEs …</h2>
+<div class="large">
+<p>… can make their software citable in a simple manner:</p>
+<ol type="1">
+<li>Create <code>CITATION.cff</code> file in source code repository</li>
+<li>Complete file with desired detailedness (manually/semi-/automatically)</li>
+<li>Update as required (manually/semi-/automatically)</li>
+<li>Profit!</li>
+</ol>
+</div>
+</section><section id="researchers" class="slide level2">
+<h2>Researchers …</h2>
+<div class="large">
+<p>… can easily identify software citation metadata:</p>
+<ol type="1">
+<li>Find <code>CITATION.cff</code> in a repository</li>
+<li>Read file &amp; understand its purpose (from <code>message</code> field)</li>
+<li>Cite software (version) appropriately</li>
+<li>Profit!</li>
+</ol>
+</div>
+</section><section id="registries-other-downstream-users" class="slide level2">
+<h2>Registries &amp; other downstream users …</h2>
+<div class="large">
+<p>… can use CFF as source for their own metadata model/format:</p>
+<ol type="1">
+<li>Check for <code>CITATION.cff</code> in ingested data</li>
+<li>(Optionally: validate <code>CITATION.cff</code> + citation metadata)</li>
+<li>Convert metadata to own model/format?<br />
+(Alternatively supplied by user before ingestion)</li>
+<li>Profit!</li>
+</ol>
+</div>
+</section></section>
+<section><section id="thank-you" class="title-slide slide level1"><h1>Thank you!</h1></section><section id="thanks-for-listening-and-thanks-to" class="slide level2">
+<h2>Thanks for listening, and thanks to …</h2>
+<p>… CFF contributors; Alice Allen, Tom Morrell &amp; Michael Hucka for the invitation; the Software Sustainability Institute (UK) for funding activities around CFF.</p>
+<div class="center">
+<p><a href="https://citation-file-format.github.io">citation-file-format.github.io</a><br />
+<a href="https://github.com/citation-file-format/citation-file-format">github.com/citation-file-format/citation-file-format</a></p>
+<p>stephan.druskat@dlr.de<br />
+Twitter: <a href="http://twitter.com/stdruskat">@stdruskat</a><br />
+ORCiD <a href="https://orcid.org/0000-0003-4925-7248">0000-0003-4925-7248</a><br />
+Slides: <a href="https://doi.org/10.6084/m9.figshare.10296917">doi:10.6084/m9.figshare.10296917</a></p>
+</div>
+</section></section>
+<section><section id="appendix" class="title-slide slide level1"><h1>Appendix</h1></section><section id="references" class="slide level2 unnumbered">
+<h2>References</h2>
+<div id="refs" class="references" role="doc-bibliography">
+<div id="ref-wilsonEncouragingCitationSoftware2013">
+<p>[1] R. Wilson, “Encouraging citation of software – introducing CITATION files.” 2013 [Online]. Available: <a href="https://goo.gl/7gZuSY">https://goo.gl/7gZuSY</a>.</p>
+</div>
+<div id="ref-smithSoftwareCitationPrinciples2016">
+<p>[2] Arfon M. Smith, Daniel S. Katz, Kyle E. Niemeyer, and FORCE11 Software Citation Working Group, “Software citation principles,” <em>PeerJ Computer Science</em>, vol. 2, no. e86, 2016 [Online]. Available: <a href="https://doi.org/10.7717/peerj-cs.86">https://doi.org/10.7717/peerj-cs.86</a>.</p>
+</div>
+<div id="ref-druskatShouldCITATIONFiles2017">
+<p>[3] Stephan Druskat, “Should CITATION files be standardized?” in <em>Proceedings of the Workshop on Sustainable Software for Science: Practice and Experiences (WSSSPE5.1)</em>, 2017 [Online]. Available: <a href="https://doi.org/10.6084/m9.figshare.3827058.v4">https://doi.org/10.6084/m9.figshare.3827058.v4</a>.</p>
+</div>
+<div id="ref-druskatStandardFormatCITATION2017">
+<p>[4] Stephan Druskat, Radovan Bast, Neil Chue Hong, Alexander Konovalov, Andrew Rowley, and Raniere Silva, “A standard format for CITATION files,” <em>Software and research</em>. Dec-2017 [Online]. Available: <a href="https://www.software.ac.uk/index.php/blog/2017-12-12-standard-format-citation-files">https://www.software.ac.uk/index.php/blog/2017-12-12-standard-format-citation-files</a>.</p>
+</div>
+<div id="ref-druskat_stephan_2018_1405679">
+<p>[5] Stephan Druskat, Jurriaan H. Spaaks, Neil Chue Hong, Robert Haines, and James Baker, “Citation File Format (CFF),” Aug. 2018 [Online]. Available: <a href="https://doi.org/10.5281/zenodo.1003149">https://doi.org/10.5281/zenodo.1003149</a>.</p>
+</div>
+</div>
+</section></section>
+    </div>
+  </div>
+
+  <script src="lib/revealjs//js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: false,
+        math: {
+          mathjax: 'lib/mathjax/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'lib/revealjs//lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'lib/revealjs//plugin/zoom-js/zoom.js', async: true },
+          { src: 'lib/revealjs//plugin/math/math.js', async: true },
+          { src: 'lib/revealjs//plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>

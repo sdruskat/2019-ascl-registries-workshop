@@ -1,6 +1,6 @@
 ---
 title:  'The Citation File Format (CFF): <br/> Why, what, how?'
-subtitle: 'Software Registries Collaboration Workshop,<br/>College Park, MD [TODO], 2019-11-13'
+subtitle: 'Scientific Software Registry Collaboration Workshop,<br/>University of Maryland, College Park, MD, 2019-11-13'
 author: 
     - '<em>Stephan Druskat</em> (German Aerospace Center (DLR),<br/>Friedrich Schiller University Jena, Humboldt-Universität zu Berlin)<br/><img src="image/cc-by.png">'
 theme: 'humboldt'
@@ -18,26 +18,26 @@ aspectratio: 169
 ## Software citation has a metadata problem
 
 - Growing awareness of the central role of software in research
-- Call to treat software as a first-class citizen in research
-- Cite software as you would cite a paper
+- Consequence: treat software as a first-class citizen in research
+- Ergo: cite software as you would cite a paper
 
 . . .
 
-- Citation-relevant metadata not readily available [TODO insert figure with paper title page + software figure]
+- Citation-relevant metadata not readily available
 - Available metadata not reliable  
 (e.g., "correct" authors & contributors != GitHub committers)
 
 ## `CITATION` files
 
 - "Put a file called `CITATION` in your source code repository, and include a BibTeX snippet" [@wilsonEncouragingCitationSoftware2013]
-- Ubiquitous [TODO ?] file name
-- BibTeX may not be [TODO eindeutig], and not fit for software citation based on the Principles [@smithSoftwareCitationPrinciples2016]
+- Ambiguous file name
+- BibTeX itself may be ambiguous, and not fit for software citation based on the Principles [@smithSoftwareCitationPrinciples2016]
 
 . . .
 
-- Idea: Develop a standard format for `CITATION` files?  
+- **Idea:** Develop a standard format for `CITATION` files?  
 (WSSSPE 5.1) [@druskatShouldCITATIONFiles2017],[@druskatStandardFormatCITATION2017]
-- Outcome: Citation File Format (CFF) [@druskatCitationFileFormat2017] [TODO correct citation]
+- **Outcome:** Citation File Format (CFF) [@druskat_stephan_2018_1405679]
 
 
 # What is the Citation File Format?<br/>(Hint: "What's in a name?")
@@ -50,7 +50,6 @@ aspectratio: 169
 - Modeled after the Software Citation Principles paper [@smithSoftwareCitationPrinciples2016]
 - Compatible with CodeMeta, BibTeX, etc.
 - Tooling available
-- [TODO more?]
 
 ## What does it look like?
 
@@ -68,7 +67,7 @@ date-released: 2017-12-18
 
 # New in v1.1.0
 identifiers:
-  - type: "software-heritage"
+  - type: "swh"
     value: "swh:1:rel:99f6850374dc6597af01bd0ee1d3fc0699301b9f"
 ```
 
@@ -76,11 +75,11 @@ identifiers:
 
 - A schema for validation
 - A validation tool
-- A simple web form for manual completion (also as SaaS)
+- A simple web form for manual completion (also as web service)
 - A conversion tool (from/to CodeMeta, BibTeX, zenodo.json, ...)
 - Others, e.g.:
   - A Maven plugin that creates CFF files from metadata
-  - [TODO complete]
+  - Object models in Java & Ruby
 
 
 - Development supported by:  
@@ -95,7 +94,7 @@ CFF has three main target groups:
 
 1. Developers / Research Software Engineers
 2. Researchers & other human "citers"
-3. Upstream [TODO downstream?] users, e.g., software registries
+3. Downstream users, e.g., software registries
 :::
 
 ## Developers / RSEs ...
@@ -104,7 +103,7 @@ CFF has three main target groups:
 ... can make their software citable in a simple manner:
 
 1. Create `CITATION.cff` file in source code repository
-2. Complete file manually/semi-/automatically to desired degree of detail [TODO wording]
+2. Complete file with desired detailedness (manually/semi-/automatically)
 3. Update as required (manually/semi-/automatically)
 4. Profit!
 :::
@@ -120,14 +119,15 @@ CFF has three main target groups:
 4. Profit!
 :::
 
-## Registries & other upstream [TODO] users ...
+## Registries & other downstream users ...
 
 ::: {.large}
 ... can use CFF as source for their own metadata model/format:
 
 1. Check for `CITATION.cff` in ingested data
 2. (Optionally: validate `CITATION.cff` + citation metadata)
-3. Convert metadata to own model/format
+3. Convert metadata to own model/format?  
+(Alternatively supplied by user before ingestion)
 4. Profit!
 :::
 
@@ -135,17 +135,17 @@ CFF has three main target groups:
 
 ## Thanks for listening, and thanks to ...
 
-... CFF contributors (*Jurriaan Spaaks*, N. Chue Hong, R. Haines, M. Gruenpeter, J. Baker & many more); Alice Allen, Tom [TODO] & Michael [TODO] for the invitation; the Software Sustainability Institute  (UK) for funding activities around CFF.
+... CFF contributors; Alice Allen, Tom Morrell & Michael Hucka for the invitation; the Software Sustainability Institute (UK) for funding activities around CFF.
 
 ::: {.center}
 
-[citation-file.format.github.io](https://citation-file.format.github.io)  
-[github.com/citation-file-format](https://github.com/citation-file-format)
+[citation-file-format.github.io](https://citation-file-format.github.io)  
+[github.com/citation-file-format/citation-file-format](https://github.com/citation-file-format/citation-file-format )
 
 stephan.druskat@dlr.de  
 Twitter: [\@stdruskat](http://twitter.com/stdruskat)  
 ORCiD [0000-0003-4925-7248](https://orcid.org/0000-0003-4925-7248)  
-Slides: [doi:10.6084/m9.figshare.9918653](https://doi.org/10.6084/m9.figshare.9918653) [TODO]
+Slides: [doi:10.6084/m9.figshare.10296917](https://doi.org/10.6084/m9.figshare.10296917)
 
 :::
 
